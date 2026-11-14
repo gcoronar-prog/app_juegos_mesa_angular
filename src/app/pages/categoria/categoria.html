@@ -1,0 +1,26 @@
+<div class="row">
+  @for (p of productos(); track p.id) {
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card h-100">
+        <img class="card-img-top" [src]="p.imagen" [alt]="p.nombre" />
+        <div class="card-body">
+          <h3 class="card-title">{{ p.nombre }}</h3>
+          <a [routerLink]="['/producto', p.id]">Ver detalle</a>
+        </div>
+        <div class="card-footer">
+          @if (p.precioAnterior) {
+            <p class="precio-old">${{ p.precioAnterior.toLocaleString('es-CL') }}</p>
+          }
+          <p class="precio">${{ p.precio.toLocaleString('es-CL') }}</p>
+          @if (p.descuento) {
+            <p class="descuento">{{ p.descuento }}% de descuento</p>
+          } @else {
+            <p class="sin-descuento">Sin descuento</p>
+          }
+        </div>
+      </div>
+    </div>
+  } @empty {
+    <p>No hay productos en esta categoria.</p>
+  }
+</div>
