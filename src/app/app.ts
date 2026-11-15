@@ -1,12 +1,19 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Auth } from './services/auth';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('AppJuegosMesa');
+  protected auth = inject(Auth);
+  private router = inject(Router);
+
+  salir() {
+    this.auth.cerrarSesion();
+    this.router.navigate(['/']);
+  }
 }

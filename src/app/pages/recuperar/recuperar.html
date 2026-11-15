@@ -1,1 +1,33 @@
-<p>recuperar works!</p>
+<main class="container">
+  <h2>Recuperar Contraseña</h2>
+  <a class="btn btn-primary" routerLink="/login">Volver al inicio de sesión</a>
+  <div class="container border border-dark rounded p-4 my-4" style="max-width: 480px">
+    <form id="formRecovery" class="row g-3 text-start" (ngSubmit)="recuperarPass()">
+      <div class="col-12">
+        <label for="mail" class="form-label">Escriba su dirección de correo electrónico</label>
+        <input
+          type="email"
+          class="form-control"
+          id="mail"
+          name="correo"
+          placeholder="Correo electrónico"
+          [(ngModel)]="correo"
+        />
+      </div>
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Recuperar Contraseña</button>
+      </div>
+      @if (mensaje) {
+        <div
+          id="mailRecovery"
+          class="alert"
+          [class.alert-success]="existe"
+          [class.alert-danger]="!existe"
+          role="status"
+        >
+          {{ mensaje }}
+        </div>
+      }
+    </form>
+  </div>
+</main>

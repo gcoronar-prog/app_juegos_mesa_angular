@@ -1,1 +1,105 @@
-<p>registro works!</p>
+<main id="mainRegistro" class="container">
+  <h2>Ingrese sus datos para registrarse</h2>
+  <div class="container border border-dark rounded p-4 my-4">
+    @if (mensaje) {
+      <div id="alertaFormu" class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ mensaje }}
+        <button type="button" class="btn-close" aria-label="Cerrar"></button>
+      </div>
+    }
+
+    <form id="formRegistro" class="row g-3 text-start" (ngSubmit)="registrar()">
+      <div class="col-12 col-md-6">
+        <label for="nombre" class="form-label">Nombres</label>
+        <input
+          id="nombre"
+          name="nombre"
+          type="text"
+          class="form-control"
+          [(ngModel)]="datos.nombre"
+        />
+        <div id="errorNombre" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12 col-md-6">
+        <label for="apellido" class="form-label">Apellidos</label>
+        <input
+          id="apellido"
+          name="apellido"
+          type="text"
+          class="form-control"
+          [(ngModel)]="datos.apellido"
+        />
+        <div id="errorApellido" class="invalid-feedback">Escribe un apellido válido.</div>
+      </div>
+      <div class="col-12 col-md-6">
+        <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+        <input
+          id="fechaNacimiento"
+          name="fechaNacimiento"
+          type="date"
+          class="form-control"
+          [(ngModel)]="datos.fechaNacimiento"
+        />
+        <div id="errorFecha" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12 col-md-6">
+        <label for="username" class="form-label">Nombre de usuario</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          class="form-control"
+          [(ngModel)]="datos.usuario"
+        />
+        <div class="invalid-feedback">Campo requerido</div>
+      </div>
+      <div class="col-12">
+        <label for="mail" class="form-label">Correo electrónico</label>
+        <input
+          id="mail"
+          name="correo"
+          type="email"
+          class="form-control"
+          [(ngModel)]="datos.correo"
+        />
+        <div id="errorCorreo" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12 col-md-6">
+        <label for="userPassword" class="form-label">Contraseña</label>
+        <input
+          id="userPassword"
+          type="password"
+          name="password"
+          class="form-control"
+          [(ngModel)]="datos.password"
+        />
+        <div id="errorPassword" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12 col-md-6">
+        <label for="repeatPass" class="form-label">Repetir contraseña</label>
+        <input
+          id="repeatPass"
+          name="repetir"
+          type="password"
+          class="form-control"
+          [(ngModel)]="datos.repetir"
+        />
+        <div id="errorPassRep" class="invalid-feedback"></div>
+      </div>
+      <div class="col-12 col-md-12">
+        <label for="direccion" class="form-label">Dirección de despacho</label>
+        <input
+          id="direccion"
+          name="direccion"
+          type="text"
+          class="form-control"
+          [(ngModel)]="datos.direccion"
+        />
+      </div>
+      <div class="col-12 d-flex gap-2 justify-content-end">
+        <button type="reset" class="btn btn-outline-secondary">Limpiar</button>
+        <button id="registrotbtn" type="submit" class="btn btn-primary">Registrar</button>
+      </div>
+    </form>
+  </div>
+</main>

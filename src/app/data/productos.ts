@@ -7,6 +7,7 @@ export interface Producto {
   descuento?: number;
   imagen: string;
   descripcion: string;
+  stock: number;
 }
 
 export const PRODUCTOS: Producto[] = [
@@ -18,6 +19,7 @@ export const PRODUCTOS: Producto[] = [
     imagen: 'img/booster-pokemon-tcg.png',
     descripcion:
       'Cada sobre de Pokémon Sword and Shield Lost Origin en Español contiene: 10 Cartas TCG Pokémon y un código para el juego on line.',
+    stock: 10,
   },
   {
     id: 'tcg-lugia-ex',
@@ -29,6 +31,7 @@ export const PRODUCTOS: Producto[] = [
     imagen: 'img/tcg-lugia-ex.webp',
     descripcion:
       'La colección special Pokémon TCG: Lugia ex incluye: 1 tarjeta promocional de aluminio con Lugia ex 1 tarjeta de aluminio de gran tamaño con Lugia ex 6 paquetes de refuerzo de Pokémon TCG Una tarjeta con código para Pokémon TCG Live',
+    stock: 10,
   },
   {
     id: 'booster-magic',
@@ -46,6 +49,7 @@ export const PRODUCTOS: Producto[] = [
                   cartas aleatorias para jugar, construir mazos y ampliar tu\
                   colección. Especificaciones: Producto oficial de Magic: The\
                   Gathering, formato Play Booster y edición en español (ESP).',
+    stock: 10,
   },
   {
     id: 'carpeta-pokemon',
@@ -61,6 +65,7 @@ export const PRODUCTOS: Producto[] = [
                   con doble carga en páginas de polipropileno seguras para\
                   archivo. Además, incluye espacio central para guardar hasta 4\
                   cartas Pokémon de tamaño oversized.',
+    stock: 10,
   },
   {
     id: 'torre-dados',
@@ -82,6 +87,7 @@ export const PRODUCTOS: Producto[] = [
                   para guardar componentes de juegos, además de permitir que la\
                   torre de dados sea resistente y silenciosa al lanzar los\
                   dados.',
+    stock: 10,
   },
   {
     id: 'portamazo-azul-gamegenic',
@@ -99,6 +105,7 @@ export const PRODUCTOS: Producto[] = [
                   posición de las solapas de cierre. Su mecanismo de cierre\
                   innovador en un solo clic protege los mazos y, al mismo\
                   tiempo, permite acceder fácilmente a las cartas.',
+    stock: 10,
   },
   {
     id: 'dnd-inicio-caja',
@@ -115,6 +122,7 @@ export const PRODUCTOS: Producto[] = [
                   peligrosas Caves of Chaos mientras tu grupo decide qué lugares\
                   explorar, qué desafíos enfrentar y cómo desarrollar su propia\
                   aventura.',
+    stock: 10,
   },
   {
     id: 'pathfinder-reglas',
@@ -128,6 +136,7 @@ export const PRODUCTOS: Producto[] = [
       'Pathfinder dispondrá de una extensa línea de suplementos,\
                   especialmente módulos y campañas de aventuras ambientados en\
                   el fantástico mundo de Golarion.',
+    stock: 10,
   },
   {
     id: 'dragonbane',
@@ -146,6 +155,7 @@ export const PRODUCTOS: Producto[] = [
                   tiempo de preparación. Dragonbane es un juego donde hay\
                   espacio tanto para las risas como para combates brutales que\
                   pongan a prueba a los aventureros más experimentados.',
+    stock: 10,
   },
   {
     id: 'warhammer-aos',
@@ -166,6 +176,7 @@ export const PRODUCTOS: Producto[] = [
                   información que necesitas para sumergirte en los extraños y\
                   hermosos Reinos Mortales. ¡Tu aventura comienza aquí!\
                   experimentados.',
+    stock: 10,
   },
   {
     id: 'WH-Kill-Team',
@@ -185,6 +196,7 @@ export const PRODUCTOS: Producto[] = [
                   necesitas, y una serie de escenarios introductorios, puedes\
                   familiarizarte con los conceptos básicos de las batallas\
                   tácticas a la velocidad del rayo.',
+    stock: 10,
   },
   {
     id: 'LOTR-Edoras-Citadel',
@@ -203,5 +215,6 @@ export const PRODUCTOS: Producto[] = [
                   ejércitos equilibrados (uno del Bien y otro del Mal) y todo lo\
                   que necesitas para jugar, incluido un manual de reglas, dados\
                   y accesorios.',
+    stock: 10,
   },
 ];

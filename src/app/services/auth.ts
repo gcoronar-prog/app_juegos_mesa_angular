@@ -36,6 +36,10 @@ export class Auth {
 
   registrar(nuevo: Usuario) {
     this.usuarios.push(nuevo);
+    this.guardarUsuario();
+  }
+
+  guardarUsuario() {
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
   }
 

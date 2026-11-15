@@ -1,1 +1,62 @@
-<p>bodega works!</p>
+<main class="container">
+  <h2>Inventario productos</h2>
+  @if (pocasUnidades().length > 0) {
+    <div id="alertaStock" class="alert alert-warning text-start" role="alert">
+      <strong>Atención: hay productos con poco stock</strong>
+      <ul class="mb-0">
+        @for (p of pocasUnidades(); track p.id) {
+          <li>{{ p.nombre }}:{{ !p.stock ? 'agotado' : p.stock + ' unidades' }}</li>
+        }
+      </ul>
+    </div>
+  }
+  <div class="table-responsive">
+    <table class="table align-middle text-start">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th style="width: 110px">Stock</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tablaBodega">
+        @for (prod of inventario; track prod.id) {
+          <tr>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.categoria }}</td>
+            <td>
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                [(ngModel)]="prod.stock"
+                (ngModelChange)="guardado = false"
+                [attr.aria-label]="'Stock de ' + prod.nombre"
+              />
+            </td>
+            <td>
+              @if (!prod.stock) {
+                <span class="badge text-bg-danger">Agotado</span>
+              } @else if (prod.stock <= stockMinimo) {
+                <span class="badge text-bg-warning">Stock bajo</span>
+              } @else {
+                <span class="badge text-bg-success">Disponible</span>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  @if (guardado) {
+    <div id="stockGuardado" class="alert alert-success" role="status">
+      Stock guardado correctamente.
+    </div>
+  }
+  <div class="text-end">
+    <button id="btnGuardarStock" class="btn btn-primary" (click)="guardarStock()">
+      Guardar stock
+    </button>
+  </div>
+</main>

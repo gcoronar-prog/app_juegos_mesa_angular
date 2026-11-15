@@ -1,9 +1,21 @@
 <header>
   <nav class="navbar navbar-expand-lg justify-content-end">
-    <a id="loginBtn" class="nav-link btn btn-primary" href="login.html"> Iniciar sesión </a>
-    <a id="registroBtn" class="nav-link btn btn-primary" href="./registros/registro.html"
-      >Registrar</a
-    >
+    @if (auth.sesion(); as s) {
+      @if (s.rol === 'admin') {
+        <a class="nav-link btn btn-primary" routerLink="/bodega">Bodega</a>
+        <a class="nav-link btn btn-primary" routerLink="/usuarios">Usuarios</a>
+      } @else {
+        <a class="nav-link btn btn-primary" routerLink="/carrito">Carrito Compras</a>
+        <a class="nav-link btn btn-primary" routerLink="/historial">Mis compras</a>
+      }
+      <a class="nav-link btn btn-primary" routerLink="/perfil">Mi perfil</a>
+      <button type="button" class="nav-link btn btn-primary" (click)="salir()">
+        Cerrar sesión ({{ s.usuario }})
+      </button>
+    } @else {
+      <a id="loginBtn" class="nav-link btn btn-primary" routerLink="/login"> Iniciar sesión </a>
+      <a id="registroBtn" class="nav-link btn btn-primary" routerLink="/registro">Registrar</a>
+    }
   </nav>
 
   <img class="logo" src="img/escudo-logo2.jpg" alt="Calabozos Alcaloides logo" />
@@ -13,7 +25,7 @@
       <div class="container-fluid">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link btn btn-primary" href="./index.html">Inicio</a>
+            <a class="nav-link btn btn-primary" routerLink="/">Inicio</a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -25,16 +37,16 @@
             >
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item" href="./categorias/tcg.html">Juegos de cartas</a>
+                <a class="dropdown-item" routerLink="/categoria/tcg">Juegos de cartas</a>
               </li>
               <li>
-                <a class="dropdown-item" href="./categorias/juegos_rol.html">Juegos de rol</a>
+                <a class="dropdown-item" routerLink="/categoria/juegos_rol">Juegos de rol</a>
               </li>
               <li>
-                <a class="dropdown-item" href="./categorias/wargames.html">Wargames y estrategia</a>
+                <a class="dropdown-item" routerLink="/categoria/wargames">Wargames y estrategia</a>
               </li>
               <li>
-                <a class="dropdown-item" href="./categorias/accesorios.html">Accesorios</a>
+                <a class="dropdown-item" routerLink="/categoria/accesorios">Accesorios</a>
               </li>
             </ul>
           </li>

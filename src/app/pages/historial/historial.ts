@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Compras } from '../../services/compras';
 
 @Component({
   imports: [],
@@ -6,4 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './historial.scss',
   templateUrl: './historial.html',
 })
-export class Historial {}
+export class Historial {
+  historial = inject(Compras).getHistorial().reverse();
+}

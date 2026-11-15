@@ -1,1 +1,56 @@
-<p>usuarios works!</p>
+<main class="container">
+  <h2>Administración usuarios</h2>
+  @if (mensaje) {
+    <div id="mensajeUsuarios" class="alert alert-success" role="status">{{ mensaje }}</div>
+  }
+  <div class="table-responsive">
+    <table class="table align-middle text-start">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th style="width: 170px">Rol</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tablaUsuarios">
+        @for (u of auth.usuarios; track u.usuario) {
+          <tr>
+            <td>
+              {{ u.usuario }}
+              @if (userSelf(u)) {
+                (tú)
+              }
+            </td>
+            <td>{{ u.nombre }} {{ u.apellido }}</td>
+            <td>{{ u.correo }}</td>
+            <td>
+              <select
+                name="roles"
+                class="form-select"
+                [(ngModel)]="u.rol"
+                (ngModelChange)="cambioRol(u)"
+                [disabled]="userSelf(u)"
+                [attr.aria-label]="'Rol de ' + u.usuario"
+              >
+                <option value="cliente">Cliente</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </td>
+            <td>
+              <button
+                class="btn btn-outline-danger btn-sm"
+                (click)="eliminarUsuario(u)"
+                [disabled]="userSelf(u)"
+                [attr.aria-label]="'Eliminar a ' + u.usuario"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</main>

@@ -1,1 +1,22 @@
-<p>historial works!</p>
+<main class="container">
+  <h2>Mis compras</h2>
+  @for (compra of historial; track $index) {
+    <div class="card mb-3 text-start">
+      <div class="card-header d-flex justify-content-between">
+        <span>{{ compra.fecha }}</span>
+        <strong>${{ compra.total.toLocaleString('es-CL') }}</strong>
+      </div>
+
+      <ul class="list-group list-group-flush">
+        @for (prod of compra.productos; track prod.id) {
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{ prod.cantidad }} x {{ prod.nombre }}</span>
+            <span>${{ (prod.precio * prod.cantidad).toLocaleString('es-CL') }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  } @empty {
+    <p id="sinCompra">Aún no has realizado compras.</p>
+  }
+</main>

@@ -1,1 +1,107 @@
-<p>perfil works!</p>
+<main>
+  <h2>Modificar datos</h2>
+  <div class="container border border-dark rounded p-4 my-4" style="max-width: 480px">
+    @if (mensaje) {
+      <div id="alertaEditar" class="alert alert-success" role="alert">{{ mensaje }}</div>
+    }
+    <form id="formEditar" class="row g-3 text-start" (ngSubmit)="guardarDatos()">
+      <fieldset class="row g-3" [disabled]="!editar">
+        <div class="col-12 col-md-6">
+          <label for="nombre" class="form-label">Nombres</label>
+          <input
+            id="nombre"
+            name="nombre"
+            type="text"
+            class="form-control"
+            [(ngModel)]="datos.nombre"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="apellido" class="form-label">Apellidos</label>
+          <input
+            id="apellido"
+            name="apellido"
+            type="text"
+            class="form-control"
+            [(ngModel)]="datos.apellido"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
+          <input
+            id="fechaNacimiento"
+            name="fechaNacimiento"
+            type="date"
+            class="form-control"
+            [(ngModel)]="datos.fechaNacimiento"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="username" class="form-label">Nombre de usuario</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            class="form-control"
+            [value]="datos.usuario"
+            disabled
+          />
+        </div>
+        <div class="col-12">
+          <label for="mail" class="form-label">Correo electrónico</label>
+          <input
+            id="mail"
+            type="email"
+            name="correo"
+            class="form-control"
+            [(ngModel)]="datos.correo"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="userPassword" class="form-label">Contraseña</label>
+          <input
+            id="userPassword"
+            name="password"
+            type="password"
+            class="form-control"
+            [(ngModel)]="datos.password"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <label for="repeatPass" class="form-label">Repetir contraseña</label>
+          <input
+            id="repeatPass"
+            type="password"
+            class="form-control"
+            name="repetir"
+            [(ngModel)]="datos.repetir"
+          />
+        </div>
+        <div class="col-12 col-md-12">
+          <label for="direccion" class="form-label">Dirección de despacho</label>
+          <input
+            id="direccion"
+            name="direccion"
+            type="text"
+            class="form-control"
+            [(ngModel)]="datos.direccion"
+          />
+        </div>
+      </fieldset>
+      <div class="col-12 d-flex gap-2 justify-content-end">
+        <button
+          id="btnModificar"
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="modificarDatos()"
+          [disabled]="editar"
+        >
+          Modificar datos
+        </button>
+        <button id="btnGuardar" type="submit" class="btn btn-primary" [disabled]="!editar">
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
