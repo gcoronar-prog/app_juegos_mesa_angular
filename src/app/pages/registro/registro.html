@@ -8,26 +8,26 @@
       </div>
     }
 
-    <form id="formRegistro" class="row g-3 text-start" (ngSubmit)="registrar()">
+    <form id="formRegistro" class="row g-3 text-start" (ngSubmit)="registrar()" [formGroup]="form">
       <div class="col-12 col-md-6">
         <label for="nombre" class="form-label">Nombres</label>
         <input
           id="nombre"
-          name="nombre"
           type="text"
           class="form-control"
-          [(ngModel)]="datos.nombre"
+          formControlName="nombre"
+          [class.is-invalid]="mostrarError('nombre')"
         />
-        <div id="errorNombre" class="invalid-feedback"></div>
+        <div id="errorNombre" class="invalid-feedback">El nombre es obligatorio</div>
       </div>
       <div class="col-12 col-md-6">
         <label for="apellido" class="form-label">Apellidos</label>
         <input
           id="apellido"
-          name="apellido"
           type="text"
           class="form-control"
-          [(ngModel)]="datos.apellido"
+          formControlName="apellido"
+          [class.is-invalid]="mostrarError('apellido')"
         />
         <div id="errorApellido" class="invalid-feedback">Escribe un apellido válido.</div>
       </div>
@@ -35,66 +35,96 @@
         <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>
         <input
           id="fechaNacimiento"
-          name="fechaNacimiento"
           type="date"
           class="form-control"
-          [(ngModel)]="datos.fechaNacimiento"
+          formControlName="fechaNacimiento"
+          [class.is-invalid]="mostrarError('fechaNacimiento')"
         />
-        <div id="errorFecha" class="invalid-feedback"></div>
+        <div id="errorFecha" class="invalid-feedback">
+          @if (c.fechaNacimiento.hasError('required')) {
+            La fecha de nacimiento es obligatoria.
+          } @else {
+            Debes tener al menos 13 años para registrarte.
+          }
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="username" class="form-label">Nombre de usuario</label>
         <input
           id="username"
-          name="username"
           type="text"
           class="form-control"
-          [(ngModel)]="datos.usuario"
+          formControlName="usuario"
+          [class.is-invalid]="mostrarError('usuario')"
         />
-        <div class="invalid-feedback">Campo requerido</div>
+        <div class="invalid-feedback">
+          @if (c.usuario.hasError('required')) {
+            Nombre de usuario obligatorio.
+          } @else {
+            El nombre de usuario ya existe.
+          }
+        </div>
       </div>
       <div class="col-12">
         <label for="mail" class="form-label">Correo electrónico</label>
         <input
           id="mail"
-          name="correo"
           type="email"
           class="form-control"
-          [(ngModel)]="datos.correo"
+          formControlName="correo"
+          [class.is-invalid]="mostrarError('correo')"
         />
-        <div id="errorCorreo" class="invalid-feedback"></div>
+        <div id="errorCorreo" class="invalid-feedback">
+          @if (c.correo.hasError('required')) {
+            El correo es obligatorio.
+          } @else if (c.correo.hasError('email')) {
+            El formato debe ser nombre@dominio.cl
+          } @else {
+            Ese correo ya está registrado.
+          }
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="userPassword" class="form-label">Contraseña</label>
         <input
           id="userPassword"
           type="password"
-          name="password"
           class="form-control"
-          [(ngModel)]="datos.password"
+          formControlName="password"
+          [class.is-invalid]="mostrarError('password')"
         />
-        <div id="errorPassword" class="invalid-feedback"></div>
+        <div id="errorPassword" class="invalid-feedback">
+          @if (c.password.hasError('required')) {
+            La contraseña es obligatoria.
+          } @else if (c.password.hasError('minlength') || c.password.hasError('maxlength')) {
+            La contraseña debe tener entre 6 y 18 caracteres.
+          } @else {
+            La contraseña debe contener al menos un numero y una mayuscula.
+          }
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="repeatPass" class="form-label">Repetir contraseña</label>
         <input
           id="repeatPass"
-          name="repetir"
           type="password"
           class="form-control"
-          [(ngModel)]="datos.repetir"
+          formControlName="repetir"
+          [class.is-invalid]="
+            c.repetir.touched && (c.repetir.invalid || form.hasError('diferentes'))
+          "
         />
-        <div id="errorPassRep" class="invalid-feedback"></div>
+        <div id="errorPassRep" class="invalid-feedback">
+          @if (c.repetir.hasError('required')) {
+            Campo requerido, repita contraseña.
+          } @else {
+            Las contraseñas no coinciden.
+          }
+        </div>
       </div>
       <div class="col-12 col-md-12">
-        <label for="direccion" class="form-label">Dirección de despacho</label>
-        <input
-          id="direccion"
-          name="direccion"
-          type="text"
-          class="form-control"
-          [(ngModel)]="datos.direccion"
-        />
+        <label for="direccion" class="form-label">Dirección de despacho (opcional)</label>
+        <input id="direccion" type="text" class="form-control" formControlName="direccion" />
       </div>
       <div class="col-12 d-flex gap-2 justify-content-end">
         <button type="reset" class="btn btn-outline-secondary">Limpiar</button>
