@@ -2,17 +2,29 @@
   <h2>Recuperar Contraseña</h2>
   <a class="btn btn-primary" routerLink="/login">Volver al inicio de sesión</a>
   <div class="container border border-dark rounded p-4 my-4" style="max-width: 480px">
-    <form id="formRecovery" class="row g-3 text-start" (ngSubmit)="recuperarPass()">
+    <form
+      id="formRecovery"
+      class="row g-3 text-start"
+      [formGroup]="form"
+      (ngSubmit)="recuperarPass()"
+    >
       <div class="col-12">
         <label for="mail" class="form-label">Escriba su dirección de correo electrónico</label>
         <input
           type="email"
           class="form-control"
           id="mail"
-          name="correo"
           placeholder="Correo electrónico"
-          [(ngModel)]="correo"
+          formControlName="correo"
+          [class.is-invalid]="c.correo.invalid && c.correo.touched"
         />
+        <div class="invalid-feedback">
+          @if (c.correo.hasError('required')) {
+            El correo es obligatorio.
+          } @else {
+            El formato debe ser nombre&#64;dominio.cl
+          }
+        </div>
       </div>
       <div class="col-12">
         <button class="btn btn-primary" type="submit">Recuperar Contraseña</button>

@@ -1,7 +1,7 @@
 <main class="container">
   <h3>Ingrese sus datos para iniciar sesión</h3>
   <div class="container border border-dark rounded p-4 my-4" style="max-width: 480px">
-    <form id="formLogin" class="row g-3 text-start" (ngSubmit)="ingresar()">
+    <form id="formLogin" class="row g-3 text-start" [formGroup]="form" (ngSubmit)="ingresar()">
       <div class="col-12">
         <label for="userMail" class="form-label">Correo electrónico</label>
         <input
@@ -10,10 +10,17 @@
           name="userMail"
           id="userMail"
           placeholder="E-mail"
-          [(ngModel)]="datos.correo"
+          formControlName="correo"
+          [class.is-invalid]="mostrarError('correo')"
         />
+        <div id="errorUser" class="invalid-feedback">
+          @if (c.correo.hasError('required')) {
+            El correo es obligatorio
+          } @else {
+            El formato debe ser nombre@dominio.cl
+          }
+        </div>
       </div>
-      <span id="errorUser" class="text-danger"></span>
       <div class="col-12">
         <label for="contrasenia" class="form-label">Contraseña</label>
         <input
@@ -22,11 +29,17 @@
           name="contrasenia"
           id="contrasenia"
           placeholder="Contraseña"
-          [(ngModel)]="datos.password"
+          formControlName="password"
+          [class.is-invalid]="mostrarError('password')"
         />
+        <div id="errorPass" class="invalid-feedback">
+          @if (c.password.hasError('required')) {
+            La contraseña es obligatoria
+          }
+        </div>
       </div>
       @if (error) {
-        <span id="errorPass" class="text-danger">{{ error }}</span>
+        <span class="text-danger">{{ error }}</span>
       }
       <a routerLink="/recuperar">Recuperar Contraseña</a>
       <div class="col-12">

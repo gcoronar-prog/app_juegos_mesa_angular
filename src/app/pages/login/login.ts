@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../services/auth';
 
 @Component({
-  imports: [FormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   selector: 'app-login',
   styleUrl: './login.scss',
   templateUrl: './login.html',
@@ -12,15 +12,32 @@ import { Auth } from '../../services/auth';
 export class Login {
   private auth = inject(Auth);
   private router = inject(Router);
+  private fb = inject(FormBuilder);
 
-  datos = { correo: '', password: '' };
+  form = this.fb.nonNullable.group({
+    correo: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
+
+  c = this.form.controls;
   error = '';
 
+  mostrarError(campo: string) {
+    const control = this.form.get(campo);
+    return control?.invalid && control.touched;
+  }
+
   ingresar() {
-    if (this.auth.login(this.datos.correo, this.datos.password)) {
-      this.router.navigate(['/']);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     } else {
-      this.error = 'Usuario o contraseña incorrectos';
+      const { correo, password } = this.form.getRawValue();
+      if (this.auth.login(correo, password)) {
+        this.router.navigate(['/']);
+      } else {
+        this.error = 'Usuario o contraseña incorrectos';
+      }
     }
   }
 }
