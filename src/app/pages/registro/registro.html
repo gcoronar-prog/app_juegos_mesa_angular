@@ -18,7 +18,13 @@
           formControlName="nombre"
           [class.is-invalid]="mostrarError('nombre')"
         />
-        <div id="errorNombre" class="invalid-feedback">El nombre es obligatorio</div>
+        <div id="errorNombre" class="invalid-feedback">
+          @if (c.nombre.hasError('required')) {
+            El nombre es obligatorio
+          } @else {
+            El nombre solo puede contener letras
+          }
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="apellido" class="form-label">Apellidos</label>
@@ -29,7 +35,13 @@
           formControlName="apellido"
           [class.is-invalid]="mostrarError('apellido')"
         />
-        <div id="errorApellido" class="invalid-feedback">Escribe un apellido válido.</div>
+        <div id="errorApellido" class="invalid-feedback">
+          @if (c.apellido.hasError('required')) {
+            Escribe un apellido válido.
+          } @else {
+            El apellido solo debe contener letras.
+          }
+        </div>
       </div>
       <div class="col-12 col-md-6">
         <label for="fechaNacimiento" class="form-label">Fecha de nacimiento</label>

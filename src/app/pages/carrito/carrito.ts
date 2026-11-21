@@ -18,6 +18,14 @@ export class Carrito {
     return this.carrito.reduce((suma, i) => suma + i.precio * (i.cantidad || 0), 0);
   }
 
+  stock(item: ItemCarrito) {
+    return this.compras.stockDisponible(item.id);
+  }
+
+  faltaStock(item: ItemCarrito) {
+    return item.cantidad > this.stock(item);
+  }
+
   cambiarCantidad(item: ItemCarrito) {
     item.cantidad = Math.max(1, Math.floor(item.cantidad) || 1);
     this.compras.guardarCarrito(this.carrito);
@@ -26,6 +34,10 @@ export class Carrito {
   eliminarProducto(item: ItemCarrito) {
     this.carrito = this.carrito.filter((i) => i !== item);
     this.compras.guardarCarrito(this.carrito);
+  }
+
+  faltantes() {
+    return this.carrito.some((i) => this.faltaStock(i));
   }
 
   agregarCompra() {

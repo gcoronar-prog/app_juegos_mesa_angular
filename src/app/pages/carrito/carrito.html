@@ -27,10 +27,16 @@
                   type="number"
                   min="1"
                   class="form-control"
+                  [class.is-invalid]="faltaStock(item)"
                   [(ngModel)]="item.cantidad"
                   (change)="cambiarCantidad(item)"
                   [attr.aria-label]="'Cantidad de ' + item.nombre"
                 />
+                @if (faltaStock(item)) {
+                  <div class="invalid-feedback">
+                    {{ stock(item) === 0 ? 'Agotado' : 'Solo quedan ' + stock(item) }}
+                  </div>
+                }
               </td>
               <td>${{ (item.precio * (item.cantidad || 0)).toLocaleString('es-CL') }}</td>
               <td>
@@ -56,7 +62,12 @@
     </div>
 
     <div class="text-end">
-      <button id="btnComprar" class="btn btn-primary" (click)="agregarCompra()">
+      <button
+        id="btnComprar"
+        class="btn btn-primary"
+        (click)="agregarCompra()"
+        [disabled]="faltantes()"
+      >
         Realizar compra
       </button>
     </div>

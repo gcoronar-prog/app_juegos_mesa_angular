@@ -19,11 +19,16 @@ export class Producto {
   producto = computed(() => PRODUCTOS.find((p) => p.id === this.id()));
   agregado = signal(false);
 
+  agotado() {
+    return this.compras.stockDisponible(this.producto()!.id) === 0;
+  }
+
   agregar() {
     if (!this.auth.sesion()) {
       this.router.navigate(['/login']);
       return;
     }
+    if (this.agotado()) return;
     this.compras.agregarProducto(this.producto()!);
     this.agregado.set(true);
   }

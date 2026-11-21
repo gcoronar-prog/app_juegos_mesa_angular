@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth } from './auth';
-import { Producto } from '../data/productos';
+import { Producto, PRODUCTOS } from '../data/productos';
 
 export interface ItemCarrito {
   id: string;
@@ -46,7 +46,22 @@ export class Compras {
     const historial = this.getHistorial();
     historial.push({ fecha: new Date().toLocaleDateString('es-CL'), productos: carrito, total });
     localStorage.setItem(this.claveUsuario('historial'), JSON.stringify(historial));
+    this.quitarStock(carrito);
     this.guardarCarrito([]);
+  }
+
+  private quitarStock(carrito: ItemCarrito[]) {
+    const stock: Record<string, number> = JSON.parse(localStorage.getItem('stock') ?? '{}');
+    for (const item of carrito) {
+      const actual = stock[item.id] ?? PRODUCTOS.find((p) => p.id === item.id)?.stock ?? 0;
+      stock[item.id] = Math.max(0, actual - item.cantidad);
+    }
+    localStorage.setItem('stock', JSON.stringify(stock));
+  }
+
+  stockDisponible(id: string): number {
+    const stock: Record<string, number> = JSON.parse(localStorage.getItem('stock') ?? '{}');
+    return stock[id] ?? PRODUCTOS.find((p) => p.id === id)?.stock ?? 0;
   }
 
   getHistorial() {

@@ -34,8 +34,8 @@ export class Registro {
 
   form = this.fb.nonNullable.group(
     {
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
+      nombre: ['', [Validators.required, Validators.pattern(/^\p{L}+([ '-]\p{L}+)*$/u)]],
+      apellido: ['', [Validators.required, Validators.pattern(/^\p{L}+([ '-]\p{L}+)*$/u)]],
       fechaNacimiento: ['', [Validators.required, mayorDe13]],
       usuario: ['', [Validators.required, this.userRepetido('usuario')]],
       correo: ['', [Validators.required, Validators.email, this.userRepetido('correo')]],

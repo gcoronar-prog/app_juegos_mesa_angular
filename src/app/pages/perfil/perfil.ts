@@ -38,8 +38,14 @@ export class Perfil {
 
   form = this.fb.nonNullable.group(
     {
-      nombre: [this.actual?.nombre ?? '', Validators.required],
-      apellido: [this.actual?.apellido ?? '', Validators.required],
+      nombre: [
+        this.actual?.nombre ?? '',
+        [Validators.required, Validators.pattern(/^\p{L}+([ '-]\p{L}+)*$/u)],
+      ],
+      apellido: [
+        this.actual?.apellido ?? '',
+        [Validators.required, Validators.pattern(/^\p{L}+([ '-]\p{L}+)*$/u)],
+      ],
       fechaNacimiento: [this.actual?.fechaNacimiento ?? '', [Validators.required, mayorDe13]],
       correo: [
         this.actual?.correo ?? '',

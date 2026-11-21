@@ -19,8 +19,14 @@
           }
           @if (auth.sesion()?.rol !== 'admin') {
             <div>
-              <button class="btn btn-primary" (click)="agregarProducto(p)">
-                @if (agregado() === p.id) {
+              <button
+                class="btn btn-primary"
+                (click)="agregarProducto(p)"
+                [disabled]="productoAgotado(p.id)"
+              >
+                @if (productoAgotado(p.id)) {
+                  Agotado
+                } @else if (agregado() === p.id) {
                   Producto agregado
                 } @else {
                   <i class="bi bi-cart-check"></i> Agregar al carrito
